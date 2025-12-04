@@ -22,6 +22,7 @@
 #if CONFIG_BT_NIMBLE_ENABLED && MYNEWT_VAL(BLE_ROLE_CENTRAL)
 
 # include "NimBLERemoteValueAttribute.h"
+# include "ModernCpp.h"
 # include <vector>
 # include <functional>
 
@@ -57,7 +58,7 @@ class NimBLERemoteCharacteristic : public NimBLERemoteValueAttribute {
     std::vector<NimBLERemoteDescriptor*>::iterator begin() const;
     std::vector<NimBLERemoteDescriptor*>::iterator end() const;
     NimBLERemoteDescriptor*                        getDescriptor(const NimBLEUUID& uuid) const;
-    const std::vector<NimBLERemoteDescriptor*>&    getDescriptors(bool refresh = false) const;
+    NimBLESpan<NimBLERemoteDescriptor* const>    getDescriptors(bool refresh = false) const;
 
   private:
     friend class NimBLEClient;

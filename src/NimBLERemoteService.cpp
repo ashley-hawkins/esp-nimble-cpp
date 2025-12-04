@@ -129,7 +129,7 @@ Done:
  * If false the vector will be returned with the currently stored characteristics of this service.
  * @return A read-only reference to the vector of characteristics retrieved for this service.
  */
-const std::vector<NimBLERemoteCharacteristic*>& NimBLERemoteService::getCharacteristics(bool refresh) const {
+NimBLESpan<NimBLERemoteCharacteristic* const> NimBLERemoteService::getCharacteristics(bool refresh) const {
     if (refresh) {
         deleteCharacteristics();
         retrieveCharacteristics();

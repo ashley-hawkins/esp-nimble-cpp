@@ -33,7 +33,7 @@ public:
         numberOfReceivedBytes = nextSequenceNumber = 0;
     }
 
-    void onRead(NimBLEL2CAPChannel* channel, std::vector<uint8_t>& data) {
+    void onRead(NimBLEL2CAPChannel* channel, NimBLESpan<uint8_t const> data) {
         numberOfReceivedBytes += data.size();
         size_t sequenceNumber = data[0];
         printf("L2CAP read %d bytes w/ sequence number %d", data.size(), sequenceNumber);

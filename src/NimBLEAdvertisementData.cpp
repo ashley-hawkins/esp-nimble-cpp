@@ -50,7 +50,7 @@ bool NimBLEAdvertisementData::addData(const uint8_t* data, size_t length) {
  * @brief Add data to the payload to be advertised.
  * @param [in] data The data to be added to the payload.
  */
-bool NimBLEAdvertisementData::addData(const std::vector<uint8_t>& data) {
+bool NimBLEAdvertisementData::addData(NimBLESpan<uint8_t const> data) {
     return addData(&data[0], data.size());
 } // addData
 
@@ -293,7 +293,7 @@ bool NimBLEAdvertisementData::setManufacturerData(const std::string& data) {
  * @param [in] data The manufacturer data to advertise.
  * @return True if successful.
  */
-bool NimBLEAdvertisementData::setManufacturerData(const std::vector<uint8_t>& data) {
+bool NimBLEAdvertisementData::setManufacturerData(NimBLESpan<uint8_t const> data) {
     return setManufacturerData(&data[0], data.size());
 } // setManufacturerData
 
@@ -361,7 +361,7 @@ bool NimBLEAdvertisementData::setCompleteServices(const NimBLEUUID& uuid) {
  * @param [in] uuids A vector of 16 bit UUID's to advertise.
  * @return True if successful.
  */
-bool NimBLEAdvertisementData::setCompleteServices16(const std::vector<NimBLEUUID>& uuids) {
+bool NimBLEAdvertisementData::setCompleteServices16(NimBLESpan<NimBLEUUID const> uuids) {
     return setServices(true, 16, uuids);
 } // setCompleteServices16
 
@@ -370,7 +370,7 @@ bool NimBLEAdvertisementData::setCompleteServices16(const std::vector<NimBLEUUID
  * @param [in] uuids A vector of 32 bit UUID's to advertise.
  * @return True if successful.
  */
-bool NimBLEAdvertisementData::setCompleteServices32(const std::vector<NimBLEUUID>& uuids) {
+bool NimBLEAdvertisementData::setCompleteServices32(NimBLESpan<NimBLEUUID const> uuids) {
     return setServices(true, 32, uuids);
 } // setCompleteServices32
 
@@ -388,7 +388,7 @@ bool NimBLEAdvertisementData::setPartialServices(const NimBLEUUID& uuid) {
  * @param [in] uuids A vector of 16 bit UUID's to advertise.
  * @return True if successful.
  */
-bool NimBLEAdvertisementData::setPartialServices16(const std::vector<NimBLEUUID>& uuids) {
+bool NimBLEAdvertisementData::setPartialServices16(NimBLESpan<NimBLEUUID const> uuids) {
     return setServices(false, 16, uuids);
 } // setPartialServices16
 
@@ -397,7 +397,7 @@ bool NimBLEAdvertisementData::setPartialServices16(const std::vector<NimBLEUUID>
  * @param [in] uuids A vector of 32 bit UUID's to advertise.
  * @return True if successful.
  */
-bool NimBLEAdvertisementData::setPartialServices32(const std::vector<NimBLEUUID>& uuids) {
+bool NimBLEAdvertisementData::setPartialServices32(NimBLESpan<NimBLEUUID const> uuids) {
     return setServices(false, 32, uuids);
 } // setPartialServices32
 
@@ -409,7 +409,7 @@ bool NimBLEAdvertisementData::setPartialServices32(const std::vector<NimBLEUUID>
  * @return True if successful.
  * @details The number of services will be truncated if the total length exceeds 31 bytes.
  */
-bool NimBLEAdvertisementData::setServices(bool complete, uint8_t size, const std::vector<NimBLEUUID>& uuids) {
+bool NimBLEAdvertisementData::setServices(bool complete, uint8_t size, NimBLESpan<NimBLEUUID const> uuids) {
     uint8_t bytes  = size / 8;
     uint8_t length = 2; // start with 2 for length + type bytes
     uint8_t data[BLE_HS_ADV_MAX_SZ];
@@ -512,7 +512,7 @@ bool NimBLEAdvertisementData::setServiceData(const NimBLEUUID& uuid, const std::
  * @return True if the service data was set successfully.
  * @note If data length is 0 the service data will not be advertised.
  */
-bool NimBLEAdvertisementData::setServiceData(const NimBLEUUID& uuid, const std::vector<uint8_t>& data) {
+bool NimBLEAdvertisementData::setServiceData(const NimBLEUUID& uuid, NimBLESpan<uint8_t const> data) {
     return setServiceData(uuid, &data[0], data.size());
 } // setServiceData
 

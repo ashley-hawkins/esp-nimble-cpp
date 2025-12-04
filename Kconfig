@@ -204,6 +204,12 @@ config NIMBLE_CPP_FREERTOS_TASK_BLOCK_BIT
         Configure the bit to set in the task notification value when a task is blocked waiting for an event.
         This should be set to a bit that is not used by other notifications in the system.
 
+config NIMBLE_CPP_MODERN_CPP
+    bool "Enable Modern C++ features."
+    default "y"
+    help
+        Enabling this option will use Modern C++ features, such as std::span.
+
 config NIMBLE_CPP_IDF
     bool
     default BT_NIMBLE_ENABLED
@@ -216,7 +222,6 @@ config BT_ENABLED
     default "y"
     help
         Select this option to enable Bluetooth and show the submenu with Bluetooth configuration choices.
-
 
 config BT_NIMBLE_ENABLED
     bool "NimBLE - BLE only"

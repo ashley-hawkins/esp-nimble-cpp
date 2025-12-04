@@ -197,7 +197,7 @@ Done:
  * of this characteristic.
  * @return A pointer to the vector of descriptors for this characteristic.
  */
-const std::vector<NimBLERemoteDescriptor*>& NimBLERemoteCharacteristic::getDescriptors(bool refresh) const {
+NimBLESpan<NimBLERemoteDescriptor* const> NimBLERemoteCharacteristic::getDescriptors(bool refresh) const {
     if (refresh) {
         deleteDescriptors();
         retrieveDescriptors();

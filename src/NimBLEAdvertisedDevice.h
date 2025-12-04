@@ -24,6 +24,7 @@
 # include "NimBLEAddress.h"
 # include "NimBLEScan.h"
 # include "NimBLEUUID.h"
+# include "ModernCpp.h"
 
 # if defined(CONFIG_NIMBLE_CPP_IDF)
 #  include "host/ble_hs_adv.h"
@@ -96,7 +97,7 @@ class NimBLEAdvertisedDevice {
 # endif
     operator NimBLEAddress() const;
 
-    const std::vector<uint8_t>&                getPayload() const;
+    NimBLESpan<uint8_t const>                getPayload() const;
     const std::vector<uint8_t>::const_iterator begin() const;
     const std::vector<uint8_t>::const_iterator end() const;
 

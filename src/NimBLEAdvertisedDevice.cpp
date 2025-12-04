@@ -816,7 +816,7 @@ NimBLEAdvertisedDevice::operator NimBLEAddress() const {
  * @brief Get the payload advertised by the device.
  * @return The advertisement payload.
  */
-const std::vector<uint8_t>& NimBLEAdvertisedDevice::getPayload() const {
+NimBLESpan<uint8_t const> NimBLEAdvertisedDevice::getPayload() const {
     return m_payload;
 }
 

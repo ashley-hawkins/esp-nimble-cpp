@@ -688,7 +688,7 @@ NimBLERemoteService* NimBLEClient::getService(const NimBLEUUID& uuid) {
  * If false the vector will be returned with the currently stored services.
  * @return A pointer to the vector of available services.
  */
-const std::vector<NimBLERemoteService*>& NimBLEClient::getServices(bool refresh) {
+NimBLESpan<NimBLERemoteService* const> NimBLEClient::getServices(bool refresh) {
     if (refresh) {
         deleteServices();
         if (!retrieveServices()) {

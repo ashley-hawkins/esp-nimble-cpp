@@ -50,6 +50,7 @@ typedef enum {
 # include "NimBLELocalAttribute.h"
 # include "NimBLEValueAttribute.h"
 # include "NimBLEAttValue.h"
+# include "ModernCpp.h"
 # include <vector>
 class NimBLEConnInfo;
 
@@ -77,7 +78,7 @@ class NimBLELocalValueAttribute : public NimBLELocalAttribute, public NimBLEValu
      * @brief Set the value of the attribute value.
      * @param [in] vec The vector to set the value to.
      */
-    void setValue(const std::vector<uint8_t>& vec) { m_value.setValue(vec); }
+    void setValue(NimBLESpan<uint8_t const> vec) { m_value.setValue(vec); }
 
     /**
      * @brief Template to set the value to <type\>val.

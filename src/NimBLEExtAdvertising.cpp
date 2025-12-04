@@ -647,7 +647,7 @@ bool NimBLEExtAdvertisement::setManufacturerData(const std::string& data) {
  * @param [in] data The manufacturer data to advertise.
  * @return True if successful.
  */
-bool NimBLEExtAdvertisement::setManufacturerData(const std::vector<uint8_t>& data) {
+bool NimBLEExtAdvertisement::setManufacturerData(NimBLESpan<uint8_t const> data) {
     return setManufacturerData(&data[0], data.size());
 } // setManufacturerData
 
@@ -832,7 +832,7 @@ bool NimBLEExtAdvertisement::setCompleteServices(const NimBLEUUID& uuid) {
  * @param [in] v_uuid A vector of 16 bit UUID's to advertise.
  * @return True if successful.
  */
-bool NimBLEExtAdvertisement::setCompleteServices16(const std::vector<NimBLEUUID>& v_uuid) {
+bool NimBLEExtAdvertisement::setCompleteServices16(NimBLESpan<NimBLEUUID const> v_uuid) {
     return setServices(true, 16, v_uuid);
 } // setCompleteServices16
 
@@ -841,7 +841,7 @@ bool NimBLEExtAdvertisement::setCompleteServices16(const std::vector<NimBLEUUID>
  * @param [in] v_uuid A vector of 32 bit UUID's to advertise.
  * @return True if successful.
  */
-bool NimBLEExtAdvertisement::setCompleteServices32(const std::vector<NimBLEUUID>& v_uuid) {
+bool NimBLEExtAdvertisement::setCompleteServices32(NimBLESpan<NimBLEUUID const> v_uuid) {
     return setServices(true, 32, v_uuid);
 } // setCompleteServices32
 
@@ -859,7 +859,7 @@ bool NimBLEExtAdvertisement::setPartialServices(const NimBLEUUID& uuid) {
  * @param [in] v_uuid A vector of 16 bit UUID's to advertise.
  * @return True if successful.
  */
-bool NimBLEExtAdvertisement::setPartialServices16(const std::vector<NimBLEUUID>& v_uuid) {
+bool NimBLEExtAdvertisement::setPartialServices16(NimBLESpan<NimBLEUUID const> v_uuid) {
     return setServices(false, 16, v_uuid);
 } // setPartialServices16
 
@@ -868,7 +868,7 @@ bool NimBLEExtAdvertisement::setPartialServices16(const std::vector<NimBLEUUID>&
  * @param [in] v_uuid A vector of 32 bit UUID's to advertise.
  * @return True if successful.
  */
-bool NimBLEExtAdvertisement::setPartialServices32(const std::vector<NimBLEUUID>& v_uuid) {
+bool NimBLEExtAdvertisement::setPartialServices32(NimBLESpan<NimBLEUUID const> v_uuid) {
     return setServices(false, 32, v_uuid);
 } // setPartialServices32
 
@@ -879,7 +879,7 @@ bool NimBLEExtAdvertisement::setPartialServices32(const std::vector<NimBLEUUID>&
  * @param [in] uuids The vector of service UUID's to advertise.
  * @return True if successful.
  */
-bool NimBLEExtAdvertisement::setServices(bool complete, uint8_t size, const std::vector<NimBLEUUID>& uuids) {
+bool NimBLEExtAdvertisement::setServices(bool complete, uint8_t size, NimBLESpan<NimBLEUUID const> uuids) {
     uint8_t header[2];
     uint8_t uuidBytes = size / 8;
     header[0]         = uuidBytes * uuids.size() + 1;
@@ -992,7 +992,7 @@ bool NimBLEExtAdvertisement::setServiceData(const NimBLEUUID& uuid, const std::s
  * @return True if the service data was set successfully.
  * @note If data length is 0 the service data will not be advertised.
  */
-bool NimBLEExtAdvertisement::setServiceData(const NimBLEUUID& uuid, const std::vector<uint8_t>& data) {
+bool NimBLEExtAdvertisement::setServiceData(const NimBLEUUID& uuid, NimBLESpan<uint8_t const> data) {
     return setServiceData(uuid, &data[0], data.size());
 } // setServiceData
 

@@ -22,6 +22,7 @@
 #if CONFIG_BT_NIMBLE_ENABLED && MYNEWT_VAL(BLE_ROLE_CENTRAL)
 
 # include "NimBLEAttribute.h"
+# include "ModernCpp.h"
 # include <vector>
 
 class NimBLERemoteCharacteristic;
@@ -44,7 +45,7 @@ class NimBLERemoteService : public NimBLEAttribute {
     uint16_t                    getStartHandle() const { return getHandle(); }
     uint16_t                    getEndHandle() const { return m_endHandle; }
 
-    const std::vector<NimBLERemoteCharacteristic*>&    getCharacteristics(bool refresh = false) const;
+    NimBLESpan<NimBLERemoteCharacteristic* const>    getCharacteristics(bool refresh = false) const;
     std::vector<NimBLERemoteCharacteristic*>::iterator begin() const;
     std::vector<NimBLERemoteCharacteristic*>::iterator end() const;
 

@@ -26,6 +26,7 @@ class NimBLEService;
 # include "NimBLEAttribute.h"
 # include "NimBLEServer.h"
 # include "NimBLECharacteristic.h"
+# include "ModernCpp.h"
 
 /**
  * @brief The model of a BLE service.
@@ -55,7 +56,7 @@ class NimBLEService : public NimBLELocalAttribute {
     NimBLECharacteristic* getCharacteristic(const NimBLEUUID& uuid, uint16_t instanceId = 0) const;
     NimBLECharacteristic* getCharacteristicByHandle(uint16_t handle) const;
 
-    const std::vector<NimBLECharacteristic*>& getCharacteristics() const;
+    NimBLESpan<NimBLECharacteristic* const> getCharacteristics() const;
     std::vector<NimBLECharacteristic*>        getCharacteristics(const char* uuid) const;
     std::vector<NimBLECharacteristic*>        getCharacteristics(const NimBLEUUID& uuid) const;
 

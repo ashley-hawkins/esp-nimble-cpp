@@ -83,7 +83,7 @@ void NimBLEL2CAPChannel::teardownMemPool() {
     }
 }
 
-int NimBLEL2CAPChannel::writeFragment(std::vector<uint8_t>::const_iterator begin, std::vector<uint8_t>::const_iterator end) {
+int NimBLEL2CAPChannel::writeFragment(NimBLESpan<uint8_t const>::const_iterator begin, NimBLESpan<uint8_t const>::const_iterator end) {
     auto toSend = end - begin;
 
     if (stalled) {
@@ -176,7 +176,7 @@ NimBLEL2CAPChannel* NimBLEL2CAPChannel::connect(NimBLEClient*                cli
 }
 # endif // MYNEWT_VAL(BLE_ROLE_CENTRAL)
 
-bool NimBLEL2CAPChannel::write(const std::vector<uint8_t>& bytes) {
+bool NimBLEL2CAPChannel::write(NimBLESpan<uint8_t const> bytes) {
     if (!this->channel) {
         NIMBLE_LOGW(LOG_TAG, "L2CAP Channel not open");
         return false;
@@ -247,7 +247,11 @@ int NimBLEL2CAPChannel::handleDataReceivedEvent(struct ble_l2cap_event* event) {
     res = os_mbuf_free_chain(rxd);
     assert(res == 0);
 
+    #ifdef NIMBLE_MODERN_CXX
+    std::span<uint8_t const> incomingData(receiveBuffer, rx_len);
+    #else
     std::vector<uint8_t> incomingData(receiveBuffer, receiveBuffer + rx_len);
+    #endif
     callbacks->onRead(this, incomingData);
 
     struct os_mbuf* next = os_mbuf_get_pkthdr(&_coc_mbuf_pool, 0);

@@ -28,6 +28,7 @@
 # endif
 
 # include "NimBLEAddress.h"
+# include "ModernCpp.h"
 
 # include <stdint.h>
 # include <vector>
@@ -81,7 +82,7 @@ class NimBLEClient {
                                        uint16_t timeout,
                                        uint16_t scanInterval = 16,
                                        uint16_t scanWindow   = 16);
-    const std::vector<NimBLERemoteService*>&    getServices(bool refresh = false);
+    NimBLESpan<NimBLERemoteService* const>    getServices(bool refresh = false);
     std::vector<NimBLERemoteService*>::iterator begin();
     std::vector<NimBLERemoteService*>::iterator end();
     NimBLERemoteCharacteristic*                 getCharacteristic(uint16_t handle);

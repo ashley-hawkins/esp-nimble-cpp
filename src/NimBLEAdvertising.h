@@ -35,6 +35,7 @@
 # include "NimBLEUUID.h"
 # include "NimBLEAddress.h"
 # include "NimBLEAdvertisementData.h"
+# include "ModernCpp.h"
 
 # include <functional>
 # include <string>
@@ -82,11 +83,11 @@ class NimBLEAdvertising {
     bool setName(const std::string& name);
     bool setManufacturerData(const uint8_t* data, size_t length);
     bool setManufacturerData(const std::string& data);
-    bool setManufacturerData(const std::vector<uint8_t>& data);
+    bool setManufacturerData(NimBLESpan<uint8_t const> data);
     bool setURI(const std::string& uri);
     bool setServiceData(const NimBLEUUID& uuid, const uint8_t* data, size_t length);
     bool setServiceData(const NimBLEUUID& uuid, const std::string& data);
-    bool setServiceData(const NimBLEUUID& uuid, const std::vector<uint8_t>& data);
+    bool setServiceData(const NimBLEUUID& uuid, NimBLESpan<uint8_t const> data);
 
   private:
     friend class NimBLEDevice;

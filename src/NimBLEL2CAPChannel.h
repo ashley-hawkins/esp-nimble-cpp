@@ -22,6 +22,8 @@
 # undef max
 /**************************/
 
+# include "ModernCpp.h"
+
 # include <vector>
 # include <atomic>
 
@@ -54,7 +56,7 @@ class NimBLEL2CAPChannel {
     /// @return false, if the data can't be sent.
     ///
     /// NOTE: This function will block until the data has been sent or an error occurred.
-    bool write(const std::vector<uint8_t>& bytes);
+    bool write(NimBLESpan<uint8_t const> bytes);
 
     /// @return True, if the channel is connected. False, otherwise.
     bool isConnected() const { return !!channel; }
@@ -93,7 +95,7 @@ class NimBLEL2CAPChannel {
     void teardownMemPool();
 
     // Writes data up to the size of the negotiated MTU to the channel.
-    int writeFragment(std::vector<uint8_t>::const_iterator begin, std::vector<uint8_t>::const_iterator end);
+    int writeFragment(NimBLESpan<uint8_t const>::const_iterator begin, NimBLESpan<uint8_t const>::const_iterator end);
 
     // L2CAP event handler
     static int handleL2capEvent(struct ble_l2cap_event* event, void* arg);
@@ -114,9 +116,16 @@ class NimBLEL2CAPChannelCallbacks {
     /// Called after a connection has been made.
     /// Default implementation does nothing.
     virtual void onConnect(NimBLEL2CAPChannel* channel, uint16_t negotiatedMTU) {};
+    #ifdef CONFIG_NIMBLE_CPP_MODERN_CPP
+    /// Called when data has been read from the channel.
+    /// Data is only valid during the scope of this call, so copy it if you need to keep it.
+    /// Default implementation does nothing.
+    virtual void onRead(NimBLEL2CAPChannel* channel, NimBLESpan<uint8_t const> data) {};
+    #else
     /// Called when data has been read from the channel.
     /// Default implementation does nothing.
-    virtual void onRead(NimBLEL2CAPChannel* channel, std::vector<uint8_t>& data) {};
+    virtual void onRead(NimBLEL2CAPChannel* channel, NimBLESpan<uint8_t> data) {};
+    #endif
     /// Called after the channel has been disconnected.
     /// Default implementation does nothing.
     virtual void onDisconnect(NimBLEL2CAPChannel* channel) {};

@@ -318,7 +318,7 @@ NimBLECharacteristic* NimBLEService::getCharacteristicByHandle(uint16_t handle) 
 /**
  * @return A vector containing pointers to each characteristic associated with this service.
  */
-const std::vector<NimBLECharacteristic*>& NimBLEService::getCharacteristics() const {
+NimBLESpan<NimBLECharacteristic* const> NimBLEService::getCharacteristics() const {
     return m_vChars;
 } // getCharacteristics
 

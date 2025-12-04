@@ -25,6 +25,8 @@
 # include <string>
 # include <vector>
 
+# include "ModernCpp.h"
+
 class NimBLEUUID;
 /**
  * @brief Advertisement data set by the programmer to be published by the BLE server.
@@ -35,7 +37,7 @@ class NimBLEAdvertisementData {
     //
   public:
     bool addData(const uint8_t* data, size_t length);
-    bool addData(const std::vector<uint8_t>& data);
+    bool addData(NimBLESpan<uint8_t const> data);
     bool setAppearance(uint16_t appearance);
     bool setFlags(uint8_t flag);
     bool addTxPower();
@@ -47,19 +49,19 @@ class NimBLEAdvertisementData {
     bool removeServices();
     bool setManufacturerData(const uint8_t* data, size_t length);
     bool setManufacturerData(const std::string& data);
-    bool setManufacturerData(const std::vector<uint8_t>& data);
+    bool setManufacturerData(NimBLESpan<uint8_t const> data);
     bool setURI(const std::string& uri);
     bool setName(const std::string& name, bool isComplete = true);
     bool setShortName(const std::string& name);
     bool setCompleteServices(const NimBLEUUID& uuid);
-    bool setCompleteServices16(const std::vector<NimBLEUUID>& uuids);
-    bool setCompleteServices32(const std::vector<NimBLEUUID>& uuids);
+    bool setCompleteServices16(NimBLESpan<NimBLEUUID const> uuids);
+    bool setCompleteServices32(NimBLESpan<NimBLEUUID const> uuids);
     bool setPartialServices(const NimBLEUUID& uuid);
-    bool setPartialServices16(const std::vector<NimBLEUUID>& uuids);
-    bool setPartialServices32(const std::vector<NimBLEUUID>& uuids);
+    bool setPartialServices16(NimBLESpan<NimBLEUUID const> uuids);
+    bool setPartialServices32(NimBLESpan<NimBLEUUID const> uuids);
     bool setServiceData(const NimBLEUUID& uuid, const uint8_t* data, size_t length);
     bool setServiceData(const NimBLEUUID& uuid, const std::string& data);
-    bool setServiceData(const NimBLEUUID& uuid, const std::vector<uint8_t>& data);
+    bool setServiceData(const NimBLEUUID& uuid, NimBLESpan<uint8_t const> data);
     bool removeData(uint8_t type);
     void clearData();
     int  getDataLocation(uint8_t type) const;
@@ -70,7 +72,7 @@ class NimBLEAdvertisementData {
   private:
     friend class NimBLEAdvertising;
 
-    bool                 setServices(bool complete, uint8_t size, const std::vector<NimBLEUUID>& v_uuid);
+    bool                 setServices(bool complete, uint8_t size, NimBLESpan<NimBLEUUID const> v_uuid);
     std::vector<uint8_t> m_payload{};
 }; // NimBLEAdvertisementData
 

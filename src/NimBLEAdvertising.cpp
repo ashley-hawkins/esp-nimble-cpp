@@ -559,7 +559,7 @@ bool NimBLEAdvertising::setManufacturerData(const std::string& data) {
  * @param [in] data The data to advertise.
  * @return True if the manufacturer data was set successfully.
  */
-bool NimBLEAdvertising::setManufacturerData(const std::vector<uint8_t>& data) {
+bool NimBLEAdvertising::setManufacturerData(NimBLESpan<uint8_t const> data) {
     return setManufacturerData(&data[0], data.size());
 } // setManufacturerData
 
@@ -605,7 +605,7 @@ bool NimBLEAdvertising::setServiceData(const NimBLEUUID& uuid, const uint8_t* da
  * @return True if the service data was set successfully.
  * @note If data length is 0 the service data will not be advertised.
  */
-bool NimBLEAdvertising::setServiceData(const NimBLEUUID& uuid, const std::vector<uint8_t>& data) {
+bool NimBLEAdvertising::setServiceData(const NimBLEUUID& uuid, NimBLESpan<uint8_t const> data) {
     return setServiceData(uuid, data.data(), data.size());
 } // setServiceData
 

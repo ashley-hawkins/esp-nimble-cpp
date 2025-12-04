@@ -29,7 +29,7 @@ public:
         printf("L2CAP MTU changed to %d\n", mtu);
     }
 
-    void onRead(NimBLEL2CAPChannel* channel, std::vector<uint8_t>& data) {
+    void onRead(NimBLEL2CAPChannel* channel, NimBLESpan<uint8_t const> data) {
         printf("L2CAP read %d bytes\n", data.size());
     }
     void onDisconnect(NimBLEL2CAPChannel* channel) {
