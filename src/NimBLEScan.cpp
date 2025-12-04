@@ -33,7 +33,7 @@ static NimBLEScanCallbacks defaultScanCallbacks;
 NimBLEScan::NimBLEScan()
     : m_pScanCallbacks{&defaultScanCallbacks},
       // default interval + window, no whitelist scan filter,not limited scan, no scan response, filter_duplicates
-      m_scanParams{0, 0, BLE_HCI_SCAN_FILT_NO_WL, 0, 1, 1},
+      m_scanParams{0, 0, BLE_HCI_SCAN_FILT_NO_WL, 0, 1, 1, 0},
       m_pTaskData{nullptr},
       m_maxResults{0xFF} {}
 
